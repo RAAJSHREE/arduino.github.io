@@ -27,25 +27,18 @@
       padding: 1px;
       text-align: center;
       text-decoration: none;
-
       margin: 8px 18px;
       height: 25px;
       width: 100px;
       border-radius: 10%;
       outline: none;
-
-      border-radius: 20px;
-      grid-column: 1;
-
       cursor: pointer;
     }
 
     .container {
-      width: 1500px;
-      height: 360px;
-      margin-top: 30px;
-      margin-bottom: 7.5px;
+      width: 100%;
       margin: 0 auto;
+      padding: 30px 2%;
     }
 
     .widget {
@@ -54,10 +47,8 @@
       border-radius: 0px;
       padding: 12px;
       margin: 6px;
-      float: left;
       color: #DAE3E3;
       padding-bottom: 16px;
-
     }
 
     a {
@@ -66,38 +57,20 @@
     }
 
     .status {
-      /* margin-top: 1%; */
-      width: 1500px;
-      height: 35px;
-      color: white;
       display: grid;
-      grid-template-columns: 15% 70% 15%;
+      grid-template-columns: 1fr 3fr 1fr;
+      margin-bottom: 16px;
     }
 
     #bluetooth {
       font-size: 16px;
-      height: 50%;
       margin: auto;
     }
 
-    .square {
-      width: 423px;
-      height: 160px;
-      position: relative;
-    }
-
     .label {
-      height: 15px;
-      display: inline;
+      display: inline-block;
       font-size: 12px;
-
-    }
-
-    .statusBar {
-      height: 100%;
-      grid-column: 2;
-      vertical-align: middle;
-      text-align: center;
+      margin-bottom: 8px;
     }
 
     .digit {
@@ -106,28 +79,18 @@
       float: right;
     }
 
-    .short {
-      width: 192px;
-      height: 92px;
-    }
-
-    .double {
-      width: 423px;
-      height: 160px;
-    }
-
     .graph {
-      width: 192px;
+      width: 100%;
       height: 177px;
     }
 
     .doublegraph {
-      width: 423px;
+      width: 100%;
       height: 150px;
     }
 
     .shortgraph {
-      width: 192px;
+      width: 100%;
       height: 81px;
     }
 
@@ -145,16 +108,14 @@
 
     #snackbar {
       height: 20px;
+      width: 90%;
       display: block;
       visibility: visible;
       text-align: center;
       background-color: #374146;
       border-radius: 3px;
-      padding: 4px 13px 4px 13px;
+      padding: 4px 13px;
       margin: 16px 7px 7px;
-
-      display: inline-block;
-
     }
 
     #canvasDigits {
@@ -168,22 +129,18 @@
     }
 
     #snackbar.show {
-
       -webkit-animation: fadein 0.5s, 0.1s;
       animation: fadein 0.5s, 0.1s;
     }
 
-
     @-webkit-keyframes fadein {
       from {
         visibility: hidden;
-
         opacity: 0;
       }
 
       to {
         visibility: visible;
-
         opacity: 1;
       }
     }
@@ -191,14 +148,55 @@
     @keyframes fadein {
       from {
         visibility: hidden;
-
         opacity: 0;
       }
 
       to {
         visibility: visible;
-
         opacity: 1;
+      }
+    }
+
+    /* Media queries for responsiveness */
+    @media (min-width: 768px) {
+      .container {
+        width: 80%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container {
+        width: 70%;
+      }
+
+      .widget {
+        float: left;
+        width: 90%;
+        margin: 1%;
+      }
+
+      .double.widget {
+        width: 27.5%;
+      }
+
+      .square.widget {
+        width: 12%;
+        height: 37vh;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .container {
+        width: 100%;
+      }
+
+      .status {
+        grid-template-columns: 1fr 2fr 1fr;
+      }
+
+      .square.widget {
+        width: 12%;
+        height: 28vh;
       }
     }
   </style>
@@ -215,7 +213,6 @@
       <!-- <img src="Logo-Arduino-Pro-inline.svg" style="position: inherit;padding-right: 0px;filter: invert(100%);float: right; grid-column: 3; width: 80%; margin-top: 8.5%;" /> -->
     </div>
 
-
     <div class="double widget">
       <div class="label">&#127777; Temperature - </div>
       <div class="label" id="temperature-value"></div>
@@ -226,9 +223,8 @@
     <div class="double widget">
       <div class="label">&#128167; Humidity - </div>
       <div class="label" id="humidity-value"></div>
-      <div class="label">%</div>
+      <div class="label">%r.H</div>
       <div class="doublegraph" id="humidity"></div>
-
     </div>
 
     <div class="double widget">
@@ -241,21 +237,21 @@
     <div class="double widget">
       <div class="label">&#127968; Indoor Air Quality - </div>
       <div class="label" id="bsec-value"></div>
-      <div class="label"></div>
+      <div class="label">IAQ Index</div>
       <div class="doublegraph" id="bsec"></div>
     </div>
 
     <div class="double widget">
       <div class="label">&#x1F4A8; Gas Value -</div>
       <div class="label" id="gas-value"></div>
-      <div class="label"></div>
+      <div class="label">ppm</div>
       <div class="doublegraph" id="gas"></div>
     </div>
 
     <div class="double widget">
       <div class="label">&#127793; Co2 Value -</div>
       <div class="label" id="co2-value"></div>
-      <div class="label"></div>
+      <div class="label">ppm</div>
       <div class="doublegraph" id="co2"></div>
     </div>
 
@@ -271,12 +267,18 @@
     </div>
     
     <div class="square widget" id="3d">
-      <div class="label">&#128230; Quaternion Rotation</div>
-      <div class="quaternion" id="canvasDigits"></div>
-      <canvas id="arCanvas"></canvas>
-  </div>
+      <div class="label">&#128230; Quaternion Rotation&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="quaternion" id="canvasDigits">
+        <span id="xQuaternion">x: -</span>
+        <span id="yQuaternion">y: -</span>
+        <span id="zQuaternion">z: -</span>
+      </div>
+    </div>
 
-
+    <div class="square widget">
+      <div class="label">&#128161; RGB LED control</div>
+      <div id="color-picker-container" class="graph"></div>
+    </div>
 
   </div>
 </body>
@@ -604,7 +606,7 @@
     var loader = new THREE.GLTFLoader();
     var canvasDigits = document.getElementById('canvasDigits');
     scene.background = new THREE.Color(0x58585A);
-    renderer.setSize(300, 140);
+    renderer.setSize(170, 125);
 
     renderer.setPixelRatio(4);
 
@@ -693,26 +695,12 @@
   }
 
   function update3d(sensor) {
+  
     // Get the quaternion values
     var x = NiclaSenseME['quaternion'].data.x.latest();
     var y = NiclaSenseME['quaternion'].data.y.latest();
     var z = NiclaSenseME['quaternion'].data.z.latest();
     var w = NiclaSenseME['quaternion'].data.w.latest();
-
-    console.log("x:", x);
-    console.log("y:", y);
-    console.log("z:", z);
-
-    // Check if x, y, and z values are undefined or null, if so, use placeholder values
-    if (x === undefined || x === null) {
-        x = "-";
-    }
-    if (y === undefined || y === null) {
-        y = "-";
-    }
-    if (z === undefined || z === null) {
-        z = "-";
-    }
 
     // Construct the quaternion object with the values and apply that to the 3D model
     const quaternion = new THREE.Quaternion(x, y, z, w);
@@ -721,16 +709,13 @@
 
     renderer.render(scene, camera);
 
-    // Euler conversion, show the degrees beside the 3D model
+    // Euler conversion, show the degrees below the 3D model
     var rotation = new THREE.Euler().setFromQuaternion(quaternion, 'XYZ');
 
-    document.getElementById('canvasDigits').innerHTML = `
-        <span>x: ${x}</span>
-        <span>y: ${y}</span>
-        <span>z: ${z}</span>
-    `;
-}
-
+    document.getElementById('xQuaternion').innerHTML = "x: " + Math.round(rotation.x * 180 / Math.PI + 180);
+    document.getElementById('yQuaternion').innerHTML = "y: " + Math.round(rotation.y * 180 / Math.PI + 180);
+    document.getElementById('zQuaternion').innerHTML = "z: " + Math.round(rotation.z * 180 / Math.PI + 180);
+  }
 
   function bytes() {
     if (bytesReceived > bytesPrevious) {
