@@ -70,23 +70,25 @@
     .label {
       display: inline-block;
       font-size: 12px;
+      font-weight: bold;
       margin-bottom: 8px;
     }
 
     .digit {
       font-size: 20px;
+      font-weight: bold;
       color: #888888;
       float: right;
     }
 
     .graph {
       width: 100%;
-      height: 163px;
+      height: 125px;
     }
 
     .doublegraph {
       width: 100%;
-      height: 150px;
+      height: 160px;
     }
 
     .shortgraph {
@@ -102,7 +104,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* height: 100%; */
+      height: 35.5vh;
       margin: auto;
     }
 
@@ -171,17 +173,17 @@
 
       .widget {
         float: left;
-        width: 90%;
+        width: 93%;
         margin: 1%;
       }
 
       .double.widget {
-        width: 27.5%;
+        width: 28.5%;
       }
 
       .square.widget {
         width: 12%;
-        height: 8%;
+        height: 9%;
       }
     }
 
@@ -196,7 +198,7 @@
 
       .square.widget {
         width: 12%;
-        height: 8%;
+        height: 9%;
       }
     }
   </style>
@@ -267,7 +269,7 @@
     </div>
     
     <div class="square widget" id="3d">
-      <div class="label">&#128230; Quaternion Rotation&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="label">&#128230; Quaternion Rotation&nbsp;&nbsp;</div>
       <div class="quaternion" id="canvasDigits">
         <span id="xQuaternion">x: -</span>
         <span id="yQuaternion">y: -</span>
@@ -398,21 +400,24 @@
 
   //Top left pop up messaage
   function snack(m, warningLevel) {
-    snackBar = document.getElementById("snackbar");
+    var snackBar = document.getElementById("snackbar");
     snackBar.style.visibility = "visible";
     snackBar.className = "show";
 
     var warnEmoji = warningLevel ? '☝️  ' : '✅  ';
 
-    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 501);
+    setTimeout(function () { snackBar.className = snackBar.className.replace("show", ""); }, 0);
     snackBar.innerHTML = warnEmoji + m + ' <span onClick=hideSnack() style="cursor:pointer; margin-left: 15px"> ✖ </span> ';
+
+    // Hide the message after showing
+    hideSnack();
   }
 
+  // Function to hide the snackbar
   function hideSnack() {
-    snackBar = document.getElementById("snackbar");
+    var snackBar = document.getElementById("snackbar");
     snackBar.style.visibility = "hidden";
   }
-
   async function connect() {
     pairButton.style.backgroundColor = "grey";
     pairButton.style.color = 'black';
@@ -456,7 +461,7 @@
     pairButton.style.backgroundColor = 'green';
     pairButton.style.color = 'white';
     pairButton.innerHTML = "PAIRED";
-    msg('Characteristics configured');
+    msg('EMS-BST Sensors');
     snack('Connected.', 0);
 
     initColorPicker();
@@ -540,10 +545,11 @@
 
     NiclaSenseME.led.colorPicker = new iro.ColorPicker("#color-picker-container", {
       width: 150,
+      // height:8,
       color: "rgb(0, 0, 255)",
       borderWidth: 1,
       borderColor: "#fff",
-      sliderHeight: 6,
+      sliderHeight: 5,
       sliderMargin: 6
     });
     // RGB Color Picker
