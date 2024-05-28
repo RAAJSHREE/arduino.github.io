@@ -41,8 +41,8 @@
     }
 
     .container {
-      width: 960px;
-      height: 384px;
+      width: 1500px;
+      height: 360px;
       margin-top: 30px;
       margin-bottom: 7.5px;
       margin: 0 auto;
@@ -66,9 +66,9 @@
     }
 
     .status {
-      margin-top: 1%;
-      width: 885px;
-      height: 42px;
+      /* margin-top: 1%; */
+      width: 1500px;
+      height: 35px;
       color: white;
       display: grid;
       grid-template-columns: 15% 70% 15%;
@@ -81,8 +81,8 @@
     }
 
     .square {
-      width: 192px;
-      height: 226px;
+      width: 423px;
+      height: 160px;
       position: relative;
     }
 
@@ -113,7 +113,7 @@
 
     .double {
       width: 423px;
-      height: 226px;
+      height: 160px;
     }
 
     .graph {
@@ -123,7 +123,7 @@
 
     .doublegraph {
       width: 423px;
-      height: 177px;
+      height: 150px;
     }
 
     .shortgraph {
@@ -144,7 +144,7 @@
     }
 
     #snackbar {
-      height: 23px;
+      height: 20px;
       display: block;
       visibility: visible;
       text-align: center;
@@ -159,7 +159,7 @@
 
     #canvasDigits {
       width: 75%;
-      margin: auto;
+      margin: 0;
     }
 
     #canvasDigits span {
@@ -212,17 +212,9 @@
     <div class="status widget">
       <button id="pairButton">CONNECT</button>
       <div class="label statusBar" id="bluetooth">Click the connect button to connect your device</div>
-      <img src="Logo-Arduino-Pro-inline.svg" style="position: inherit;padding-right: 0px;filter: invert(100%);float: right; grid-column: 3; width: 80%; margin-top: 8.5%;" />
+      <!-- <img src="Logo-Arduino-Pro-inline.svg" style="position: inherit;padding-right: 0px;filter: invert(100%);float: right; grid-column: 3; width: 80%; margin-top: 8.5%;" /> -->
     </div>
 
-    <div class="square widget" id="3d">
-      <div class="label">&#128230; Quaternion Rotation</div>
-      <div class="quaternion" id="canvasDigits">
-        <span id="xQuaternion">x: -</span>
-        <span id="yQuaternion">y: -</span>
-        <span id="zQuaternion">z: -</span>
-      </div>
-    </div>
 
     <div class="double widget">
       <div class="label">&#127777; Temperature - </div>
@@ -231,57 +223,60 @@
       <div class="doublegraph" id="temperature"></div>
     </div>
 
-    <div class="square widget">
-      <div class="label">&#128171; Gyroscope</div>
-      <div class="label" id="gyroscope-value"></div>
-      <div id="gyroscope" class="graph"></div>
-    </div>
-
-    <!-- <div class="square widget">
-      <div class="label">&#128161; RGB LED control</div>
-      <div id="color-picker-container" class="graph"></div>
-    </div> -->
-
-    <div class="short widget">
-      <div class="label">&#128640; Accelerometer</div>
-      <div id="accelerometer" class="shortgraph"></div>
-    </div>
-
-    <div class="short widget">
+    <div class="double widget">
       <div class="label">&#128167; Humidity - </div>
       <div class="label" id="humidity-value"></div>
       <div class="label">%</div>
-      <div class="shortgraph" id="humidity"></div>
+      <div class="doublegraph" id="humidity"></div>
 
     </div>
 
-    <div class="short widget">
+    <div class="double widget">
       <div class="label">&#9925; Pressure - </div>
       <div class="label" id="pressure-value"></div>
       <div class="label">kPa</div>
-      <div class="shortgraph" id="pressure"></div>
+      <div class="doublegraph" id="pressure"></div>
     </div>
 
-    <div class="short widget">
+    <div class="double widget">
       <div class="label">&#127968; Indoor Air Quality - </div>
       <div class="label" id="bsec-value"></div>
       <div class="label"></div>
-      <div class="shortgraph" id="bsec"></div>
+      <div class="doublegraph" id="bsec"></div>
     </div>
 
-    <div class="short widget">
-      <div class="label">&#127793; Co2 Value -</div>
-      <div class="label" id="co2-value"></div>
-      <div class="label"></div>
-      <div class="shortgraph" id="co2"></div>
-    </div>
-
-    <div class="short widget">
+    <div class="double widget">
       <div class="label">&#x1F4A8; Gas Value -</div>
       <div class="label" id="gas-value"></div>
       <div class="label"></div>
-      <div class="shortgraph" id="gas"></div>
+      <div class="doublegraph" id="gas"></div>
     </div>
+
+    <div class="double widget">
+      <div class="label">&#127793; Co2 Value -</div>
+      <div class="label" id="co2-value"></div>
+      <div class="label"></div>
+      <div class="doublegraph" id="co2"></div>
+    </div>
+
+    <div class="double widget">
+      <div class="label">&#128640; Accelerometer</div>
+      <div id="accelerometer" class="doublegraph"></div>
+    </div>
+
+    <div class="double widget">
+      <div class="label">&#128171; Gyroscope</div>
+      <div class="label" id="gyroscope-value"></div>
+      <div id="gyroscope" class="doublegraph"></div>
+    </div>
+    
+    <div class="square widget" id="3d">
+      <div class="label">&#128230; Quaternion Rotation</div>
+      <div class="quaternion" id="canvasDigits"></div>
+      <canvas id="arCanvas"></canvas>
+  </div>
+
+
 
   </div>
 </body>
@@ -609,12 +604,12 @@
     var loader = new THREE.GLTFLoader();
     var canvasDigits = document.getElementById('canvasDigits');
     scene.background = new THREE.Color(0x58585A);
-    renderer.setSize(177, 177);
+    renderer.setSize(300, 140);
 
     renderer.setPixelRatio(4);
 
     container.insertBefore(renderer.domElement, canvasDigits);
-    renderer.domElement.style.margin = "9px";
+    renderer.domElement.style.margin = "3px";
     loader.load('models/niclaSenseME.glb',
       // called when the Arduinio model is loaded
       function (gltf) {
@@ -698,12 +693,26 @@
   }
 
   function update3d(sensor) {
-  
     // Get the quaternion values
     var x = NiclaSenseME['quaternion'].data.x.latest();
     var y = NiclaSenseME['quaternion'].data.y.latest();
     var z = NiclaSenseME['quaternion'].data.z.latest();
     var w = NiclaSenseME['quaternion'].data.w.latest();
+
+    console.log("x:", x);
+    console.log("y:", y);
+    console.log("z:", z);
+
+    // Check if x, y, and z values are undefined or null, if so, use placeholder values
+    if (x === undefined || x === null) {
+        x = "-";
+    }
+    if (y === undefined || y === null) {
+        y = "-";
+    }
+    if (z === undefined || z === null) {
+        z = "-";
+    }
 
     // Construct the quaternion object with the values and apply that to the 3D model
     const quaternion = new THREE.Quaternion(x, y, z, w);
@@ -712,13 +721,16 @@
 
     renderer.render(scene, camera);
 
-    // Euler conversion, show the degrees below the 3D model
+    // Euler conversion, show the degrees beside the 3D model
     var rotation = new THREE.Euler().setFromQuaternion(quaternion, 'XYZ');
 
-    document.getElementById('xQuaternion').innerHTML = "x: " + Math.round(rotation.x * 180 / Math.PI + 180);
-    document.getElementById('yQuaternion').innerHTML = "y: " + Math.round(rotation.y * 180 / Math.PI + 180);
-    document.getElementById('zQuaternion').innerHTML = "z: " + Math.round(rotation.z * 180 / Math.PI + 180);
-  }
+    document.getElementById('canvasDigits').innerHTML = `
+        <span>x: ${x}</span>
+        <span>y: ${y}</span>
+        <span>z: ${z}</span>
+    `;
+}
+
 
   function bytes() {
     if (bytesReceived > bytesPrevious) {
