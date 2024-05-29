@@ -26,10 +26,11 @@
       color: black;
       padding: 1px;
       text-align: center;
+      font-size: large;
       text-decoration: none;
       margin: 8px 18px;
-      height: 25px;
-      width: 100px;
+      height: 40px;
+      width: 150px;
       border-radius: 10%;
       outline: none;
       cursor: pointer;
@@ -63,13 +64,13 @@
     }
 
     #bluetooth {
-      font-size: 16px;
+      font-size: 25px;
       margin: auto;
     }
 
     .label {
       display: inline-block;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: bold;
       margin-bottom: 8px;
     }
@@ -81,19 +82,10 @@
       float: right;
     }
 
-    .graph {
-      width: 100%;
-      height: 125px;
-    }
-
-    .doublegraph {
-      width: 100%;
-      height: 160px;
-    }
 
     .shortgraph {
       width: 100%;
-      height: 81px;
+      height: 125px;
     }
 
     .quaternion {
@@ -122,7 +114,8 @@
 
     #canvasDigits {
       width: 75%;
-      margin: 0;
+      /* margin: 0; */
+
     }
 
     #canvasDigits span {
@@ -179,13 +172,24 @@
 
       .double.widget {
         width: 28.5%;
+        height: 10%;
       }
 
       .square.widget {
-        width: 12%;
+        width: 12.3%;
         height: 9%;
       }
-    }
+      
+      .graph {
+        width: 90%;
+        /* height: 125px; */
+      }
+
+      .doublegraph {
+        width: 90%;
+        height: 150px;
+      }
+      }
 
     @media (min-width: 1440px) {
       .container {
@@ -195,10 +199,23 @@
       .status {
         grid-template-columns: 1fr 2fr 1fr;
       }
-
+      .double.widget {
+        width: 28.5%;
+        height: 10%;
+      }
       .square.widget {
-        width: 12%;
+        width: 12.3%;
         height: 9%;
+      }
+      
+      .graph {
+        width: 90%;
+        /* height: 125px; */
+      }
+
+      .doublegraph {
+        width: 90%;
+        height: 150px;
       }
     }
   </style>
@@ -613,11 +630,15 @@
     var canvasDigits = document.getElementById('canvasDigits');
     scene.background = new THREE.Color(0x58585A);
     renderer.setSize(170, 125);
-
+    // renderer.justifyContent('center');
+    // renderer.paddingRight('inherit');
     renderer.setPixelRatio(4);
 
     container.insertBefore(renderer.domElement, canvasDigits);
-    renderer.domElement.style.margin = "3px";
+    // renderer.domElement.style.margin = "3px";
+
+    renderer.domElement.style.paddingRight = 'inherit';
+    renderer.domElement.style.justifyContent ='center';
     loader.load('models/niclaSenseME.glb',
       // called when the Arduinio model is loaded
       function (gltf) {
@@ -669,7 +690,10 @@
     const canvas = document.getElementById('colors');
     const ctx = canvas.getContext('2d');
     const thickness = canvas.width / maxRecords;
+    ctx.justifyContent= 'center';
+    ctx.paddingRight= 'inherit';
     ctx.fillStyle = "#111111";
+
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (i = 0; i < maxRecords; i++) {
       R = NiclaSenseME[sensor].data.R[i];
@@ -679,6 +703,7 @@
       R = R / total * 255; G = G / total * 255; B = B / total * 255;
       ctx.fillStyle = "rgba(" + R + "," + G + "," + B + ")";
       ctx.fillRect(i * thickness, 128, thickness - 1, -total / 5);
+      
     }
   }
   // return last item of array
