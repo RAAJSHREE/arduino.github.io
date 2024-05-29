@@ -191,7 +191,7 @@
       }
       }
 
-    @media (min-width: 1440px) {
+    @media (min-width: 900px) {
       .container {
         width: 100%;
       }
@@ -218,6 +218,73 @@
         height: 150px;
       }
     }
+    
+    @media (min-height: 768px) {
+      .container {
+        width: 80%;
+      }
+    }
+
+    @media (min-height: 1080px) {
+      .container {
+        width: 70%;
+      }
+
+      .widget {
+        float: left;
+        width: 93%;
+        margin: 1%;
+      }
+
+      .double.widget {
+        width: 28.5%;
+        height: 10%;
+      }
+
+      .square.widget {
+        width: 12.3%;
+        height: 9%;
+      }
+      
+      .graph {
+        width: 90%;
+        /* height: 125px; */
+      }
+
+      .doublegraph {
+        width: 90%;
+        height: 150px;
+      }
+      }
+
+    @media (min-height: 1440px) {
+      .container {
+        width: 100%;
+      }
+
+      .status {
+        grid-template-columns: 1fr 2fr 1fr;
+      }
+      .double.widget {
+        width: 28.5%;
+        height: 10%;
+      }
+      .square.widget {
+        width: 12.3%;
+        height: 9%;
+      }
+      
+      .graph {
+        width: 90%;
+        /* height: 125px; */
+      }
+
+      .doublegraph {
+        width: 90%;
+        height: 150px;
+      }
+    }
+
   </style>
 </head>
 
