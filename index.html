@@ -60,7 +60,7 @@
     .status {
       display: grid;
       grid-template-columns: 1fr 3fr 1fr;
-      width: 93.5%;
+      width: 93.8%;
       margin-bottom: 16px;
     }
 
@@ -209,7 +209,7 @@
 
       .status {
         grid-template-columns: 1fr 2fr 1fr;
-        width: 93.5%;
+        width: 93.8%;
 
       }
       .double.widget {
@@ -277,7 +277,7 @@
 
       .status {
         grid-template-columns: 1fr 2fr 1fr;
-        width: 93.5%;
+        width: 93.8%;
       }
       .double.widget {
         width: 28.5%;
@@ -720,7 +720,7 @@
     container.insertBefore(renderer.domElement, canvasDigits);
     // renderer.domElement.style.margin = "3px";
 
-    renderer.domElement.style.paddingRight = 'inherit';
+    // renderer.domElement.style.paddingLef = 'inherit';
     renderer.domElement.style.justifyContent ='center';
     loader.load('models/niclaSenseME.glb',
       // called when the Arduinio model is loaded
@@ -774,7 +774,7 @@
     const ctx = canvas.getContext('2d');
     const thickness = canvas.width / maxRecords;
     ctx.justifyContent= 'center';
-    ctx.paddingRight= 'inherit';
+    ctx.padding= 'inherit';
     ctx.fillStyle = "#111111";
 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
