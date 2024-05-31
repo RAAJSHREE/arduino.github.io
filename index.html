@@ -89,14 +89,24 @@
     }
 
     .quaternion {
-      font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
+        font-size: 10px;
+    }
+    .quaternion span {
+        margin: 0 2px;
+        display: inline-block;
+        min-width: 40px; /* Adjust the width as necessary */
+        text-align: center;
     }
 
     #color-picker-container {
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 120px;
+      height: 110px;
       margin: auto;
     }
 
@@ -700,7 +710,9 @@
     // renderer.justifyContent('center');
     // renderer.paddingRight('inherit');
     renderer.setPixelRatio(4);
-
+    // Apply styles to center the renderer and canvasDigits
+    renderer.domElement.style.margin = 'auto';
+    renderer.domElement.style.display = 'block';
     container.insertBefore(renderer.domElement, canvasDigits);
     // renderer.domElement.style.margin = "3px";
 
@@ -793,28 +805,26 @@
   }
 
   function update3d(sensor) {
-  
-    // Get the quaternion values
-    var x = NiclaSenseME['quaternion'].data.x.latest();
-    var y = NiclaSenseME['quaternion'].data.y.latest();
-    var z = NiclaSenseME['quaternion'].data.z.latest();
-    var w = NiclaSenseME['quaternion'].data.w.latest();
+            // Get the quaternion values
+            var x = NiclaSenseME['quaternion'].data.x.latest();
+            var y = NiclaSenseME['quaternion'].data.y.latest();
+            var z = NiclaSenseME['quaternion'].data.z.latest();
+            var w = NiclaSenseME['quaternion'].data.w.latest();
 
-    // Construct the quaternion object with the values and apply that to the 3D model
-    const quaternion = new THREE.Quaternion(x, y, z, w);
-    quaternion.normalize();
-    arduinoModel.setRotationFromQuaternion(quaternion);
+            // Construct the quaternion object with the values and apply that to the 3D model
+            const quaternion = new THREE.Quaternion(x, y, z, w);
+            quaternion.normalize();
+            arduinoModel.setRotationFromQuaternion(quaternion);
 
-    renderer.render(scene, camera);
+            renderer.render(scene, camera);
 
-    // Euler conversion, show the degrees below the 3D model
-    var rotation = new THREE.Euler().setFromQuaternion(quaternion, 'XYZ');
+            // Euler conversion, show the degrees below the 3D model
+            var rotation = new THREE.Euler().setFromQuaternion(quaternion, 'XYZ');
 
-    document.getElementById('xQuaternion').innerHTML = "x: " + Math.round(rotation.x * 180 / Math.PI + 180);
-    document.getElementById('yQuaternion').innerHTML = "y: " + Math.round(rotation.y * 180 / Math.PI + 180);
-    document.getElementById('zQuaternion').innerHTML = "z: " + Math.round(rotation.z * 180 / Math.PI + 180);
-  }
-
+            document.getElementById('xQuaternion').innerHTML = "x: " + Math.round(rotation.x * 180 / Math.PI + 180);
+            document.getElementById('yQuaternion').innerHTML = "y: " + Math.round(rotation.y * 180 / Math.PI + 180);
+            document.getElementById('zQuaternion').innerHTML = "z: " + Math.round(rotation.z * 180 / Math.PI + 180);
+        }
   function bytes() {
     if (bytesReceived > bytesPrevious) {
       bytesPrevious = bytesReceived;
