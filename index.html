@@ -638,14 +638,19 @@
     ledMaterial.color.setRGB(0,0,255);
     ledLight.color.setRGB(0,0,255);
 
+    // Calculate width in terms of viewport height (vh)
+    var pickerWidthVh = 8; // Set the desired width in vh
+
+    // Convert vh to pixels based on the viewport height
+    var pickerWidthPixels = (pickerWidthVh * window.innerHeight) / 100;
+
     NiclaSenseME.led.colorPicker = new iro.ColorPicker("#color-picker-container", {
-      width: 80,
-      // height:8,
-      color: "rgb(0, 0, 255)",
-      borderWidth: 1,
-      borderColor: "#fff",
-      sliderHeight: 4,
-      sliderMargin: 6
+        width: pickerWidthPixels,
+        color: "rgb(0, 0, 255)",
+        borderWidth: 1,
+        borderColor: "#fff",
+        sliderHeight: 4,
+        sliderMargin: 6
     });
     // RGB Color Picker
     NiclaSenseME.led.colorPicker.on('color:change', updateModelLed);
@@ -707,7 +712,13 @@
     var loader = new THREE.GLTFLoader();
     var canvasDigits = document.getElementById('canvasDigits');
     scene.background = new THREE.Color(0x58585A);
-    renderer.setSize(140, 93);
+    // renderer.setSize(140, 93);
+    var widgetSize = Math.min(container.offsetWidth, container.offsetHeight);
+    console.log(widgetSize)
+    var rendererHeight = widgetSize - 70; // Adjust as needed
+    var rendererWidth = widgetSize -30; // Adjust as needed
+
+    renderer.setSize(rendererWidth, rendererHeight);
     // renderer.justifyContent('center');
     // renderer.paddingRight('inherit');
     renderer.setPixelRatio(4);
